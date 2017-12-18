@@ -4,8 +4,36 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "electron": "NODE_ENV=development electron .",
-    "start": "webpack-dev-server --inline --hot --progress"
+    "electron": "wait-on http://localhost:5555 && NODE_ENV=development electron .",
+    "start": "webpack-dev-server --inline --hot --progress",
+    "electron-pack": "build --em.main=./main.js"
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "com.quieter",
+    "files": [
+      "build/",
+      "main.js",
+      "node_modules/",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -16,7 +44,6 @@
   "bugs": {
     "url": "https://github.com/a993630/electron-markdown/issues"
   },
-  "homepage": "https://github.com/a993630/electron-markdown#readme",
   "devDependencies": {
     "autoprefixer": "^7.2.3",
     "babel-core": "^6.26.0",
@@ -33,6 +60,7 @@
     "copy-webpack-plugin": "^4.2.3",
     "css-loader": "^0.28.7",
     "electron": "~1.7.8",
+    "electron-builder": "^19.49.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
@@ -50,6 +78,7 @@
     "mobx": "^3.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-router": "^4.2.0"
+    "react-router": "^4.2.0",
+    "wait-on": "^2.0.2"
   }
 }

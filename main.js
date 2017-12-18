@@ -12,6 +12,7 @@ const url = require('url')
 let mainWindow
 function createWindow () {
     // Create the browser window.
+    console.log(process.env.NODE_ENV, 'env')
     const openUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5555/' : url.format({
         pathname: path.join(__dirname, './build/index.html'),
         protocol: 'file:',
@@ -21,15 +22,15 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadURL(openUrl)
 
-
+    app.setAboutPanelOptions({//macOS
+        applicationName: 'Quieter',
+        applicationVersion: '0.0.1'
+    })
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
-    mainWindow.on('closed', function () {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
+    mainWindow.on('closed', () => {
         mainWindow = null
     })
 }
