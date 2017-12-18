@@ -3,7 +3,8 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
-
+const Menu = electron.Menu
+const menuTemplate = require('./client/menu')
 const path = require('path')
 const url = require('url')
 
@@ -18,10 +19,11 @@ function createWindow () {
         protocol: 'file:',
         slashes: true
     }) //开发环境开启热更新
-    mainWindow = new BrowserWindow({width: 800, height: 600})
+    mainWindow = new BrowserWindow({width: 1000, height: 800})
     // and load the index.html of the app.
     mainWindow.loadURL(openUrl)
-
+const menu = Menu.buildFromTemplate(menuTemplate)
+    Menu.setApplicationMenu(menu)
     app.setAboutPanelOptions({//macOS
         applicationName: 'Quieter',
         applicationVersion: '0.0.1'
